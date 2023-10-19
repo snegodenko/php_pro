@@ -1,0 +1,10 @@
+version: "3"
+services:
+  php_8:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes: 
+      - "./:/var/ww/html"
+    ports:
+      - "80:80"
