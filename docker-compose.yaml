@@ -2,9 +2,9 @@ version: "3"
 services:
   php_8:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      ./php
     volumes: 
-      - "./:/var/ww/html"
+      - "./php:/var/ww/html"
     ports:
-      - "80:80"
+      - "8000:8000"
+    command: php -S 0.0.0.0:8000 -t /var/ww/html
