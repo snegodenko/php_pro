@@ -24,13 +24,7 @@
                     $square = new Square($_POST['square_width'], $_POST['square_height'], $_POST['square_color']);
                     if($square->validate){
 
-                      echo '<div class="figure-item" 
-                            style="
-                            width:' . $square->width . 'px;
-                            height:' . $square->height . 'px;
-                            background-color:' . $square->color . ';
-                        "></div>';
-
+                        echo $square->build();
                         echo '<div class="figure-item-data">Площа фігури: ' . $square->area . 'px</div>';
                         echo '<div class="figure-item-data">Периметр фігури: ' . $square->length . 'px</div>';
                         
@@ -67,13 +61,7 @@
                     $rectangle = new Rectangle($_POST['rectangle_width'], $_POST['rectangle_height'], $_POST['rectangle_color']);
                     if($rectangle->validate){
 
-                      echo '<div class="figure-item" 
-                            style="
-                            width:' . $rectangle->width . 'px;
-                            height:' . $rectangle->height . 'px;
-                            background-color:' . $rectangle->color . ';
-                        "></div>';
-
+                        echo $rectangle->build();
                         echo '<div class="figure-item-data">Площа фігури: ' . $rectangle->area . 'px</div>';
                         echo '<div class="figure-item-data">Периметр фігури: ' . $rectangle->length . 'px</div>';
                         
@@ -110,14 +98,7 @@
                     $circle = new Circle($_POST['circle_width'], $_POST['circle_height'], $_POST['circle_color']);
                     if($circle->validate){
 
-                      echo '<div class="figure-item" 
-                            style="
-                            width:' . $circle->width . 'px;
-                            height:' . $circle->height . 'px;
-                            background-color:' . $circle->color . ';
-                            border-radius:' . $circle->radius . '%;
-                        "></div>';
-
+                        echo $circle->build();
                         echo '<div class="figure-item-data">Площа фігури: ' . $circle->area . 'px</div>';
                         echo '<div class="figure-item-data">Периметр фігури: ' . $circle->length . 'px</div>';
                         

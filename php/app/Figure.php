@@ -7,12 +7,30 @@ class Figure
     protected array $errors = [];
     public bool $validate = true;
 
+
     public function __construct(public $width, public $height, public $color){
         $this->validate();
         $this->calc();
     }
 
     /**
+     * Побудова фігури
+     * 
+     * @return string
+     */
+    public function build()
+    {
+        return '<div class="figure-item" 
+                            style="
+                            width:' . $this->width . 'px;
+                            height:' . $this->height . 'px;
+                            background-color:' . $this->color . ';
+                 "></div>';
+    }
+
+    /**
+     * Обчислення площі та переметру фігури
+     * 
      * @return
      */
     protected function calc()
@@ -23,6 +41,8 @@ class Figure
 
 
     /**
+     * Валідація даних із форми
+     * 
     * @return bool
     */
    protected function validate()
@@ -44,6 +64,8 @@ class Figure
    }
 
    /**
+    * Виведення повідомлення про некоректні дані 
+    *
     * @return string
     */
    public function getErrors()
