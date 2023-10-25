@@ -1,135 +1,30 @@
-<?php require __DIR__ . '/inc.php'; ?>
+<?php 
+
+require __DIR__ . '/vendor/autoload.php';
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <title>Конструктор фігур</title>
-</head>
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use app\Figure;
 
-<body>
-<?php if(isset($_POST)) //print_r($_POST); ?>
-    <div class="container">
-        <h1>Побудувати фігуру</h1>
-        <div class="row">
+$encoders = [new JsonEncoder()];
+$normalizers = [new ObjectNormalizer()];
+$serializer = new Serializer($normalizers, $encoders);
 
-            <div class="figure">
-                <h3>Квадрат</h3>
-               
-                <?php if(isset($_POST['square'])){
 
-                    $square = new Square($_POST['square_width'], $_POST['square_height'], $_POST['square_color']);
-                    if($square->validate){
+$figure = new Figure(100, 500);
+$figure->setArea();
+$figure->setLength();
+$figure->setColor();
 
-                        echo $square->build();
-                        echo '<div class="figure-item-data">Площа фігури: ' . $square->area . 'px</div>';
-                        echo '<div class="figure-item-data">Периметр фігури: ' . $square->length . 'px</div>';
-                        
-                    } else {
-                        echo $square->getErrors(); 
-                    }
-                }
-                ?>
-                <div class="form">
-                     <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="">Ширина</label>
-                            <input type="text" name="square_width" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Висота</label>
-                            <input type="text" name="square_height" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Колір</label>
-                            <input type="text" name="square_color" value="">
-                        </div>
-                        <input type="hidden" name="square" value="1">
 
-                        <button type="submit" class="btn">Намалювати</button>
-                    </form>
-                </div>
-            </div> <!-- figure --> 
+// сериалізація об'єкта класу Figure
+$jsonContent = $serializer->serialize($figure, 'json');
 
-            <div class="figure">
-                <h3>Прямокутник</h3>
-                 <?php if(isset($_POST['rectangle'])){
+var_dump($jsonContent);
 
-                    $rectangle = new Rectangle($_POST['rectangle_width'], $_POST['rectangle_height'], $_POST['rectangle_color']);
-                    if($rectangle->validate){
+// десериалізація об'єкта класу Figure
+$newFigure = $serializer->deserialize($jsonContent, Figure::class, 'json');
 
-                        echo $rectangle->build();
-                        echo '<div class="figure-item-data">Площа фігури: ' . $rectangle->area . 'px</div>';
-                        echo '<div class="figure-item-data">Периметр фігури: ' . $rectangle->length . 'px</div>';
-                        
-                    } else {
-                        echo $rectangle->getErrors(); 
-                    }
-                }
-                ?>
-                <div class="form">
-                     <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="">Ширина</label>
-                            <input type="text" name="rectangle_width" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Висота</label>
-                            <input type="text" name="rectangle_height" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Колір</label>
-                            <input type="text" name="rectangle_color" value="">
-                        </div>
-                        <input type="hidden" name="rectangle" value="1">
-
-                        <button type="submit" class="btn">Намалювати</button>
-                    </form>
-                </div>
-            </div> <!-- figure --> 
-
-            <div class="figure">
-                <h3>Коло</h3>
-                 <?php if(isset($_POST['circle'])){
-
-                    $circle = new Circle($_POST['circle_width'], $_POST['circle_height'], $_POST['circle_color']);
-                    if($circle->validate){
-
-                        echo $circle->build();
-                        echo '<div class="figure-item-data">Площа фігури: ' . $circle->area . 'px</div>';
-                        echo '<div class="figure-item-data">Периметр фігури: ' . $circle->length . 'px</div>';
-                        
-                    } else {
-                        echo $circle->getErrors(); 
-                    }
-                }
-                ?>
-                <div class="form">
-                     <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="">Ширина</label>
-                            <input type="text" name="circle_width" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Висота</label>
-                            <input type="text" name="circle_height" value="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Колір</label>
-                            <input type="text" name="circle_color" value="">
-                        </div>
-                        <input type="hidden" name="circle" value="1">
-
-                        <button type="submit" class="btn">Намалювати</button>
-                    </form>
-                </div>
-            </div> <!-- figure --> 
-
-        </div> <!-- row -->
-    </div> <!-- container -->
-    
-</body>
-</html>
+var_dump($newFigure);
