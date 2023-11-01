@@ -4,7 +4,7 @@ services:
     build: 
       ./php
     volumes: 
-      - "./php:/var/ww/html"
+      - "./php:/var/www/html"
     ports:
       - "8000:8000"
-    command: php -S 0.0.0.0:8000 -t /var/ww/html
+    command: php -S 0.0.0.0:8000 -t /var/www/html
