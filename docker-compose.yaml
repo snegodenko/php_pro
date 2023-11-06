@@ -13,4 +13,4 @@ services:
     image: composer
     command: composer install
     volumes:
-      - ".:/app"
+      - "./php:/app"
