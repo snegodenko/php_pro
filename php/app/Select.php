@@ -5,27 +5,29 @@ namespace app;
 use app\FormElement;
 class Select extends FormElement
 {
-    public function __construct(protected $name, protected $params, protected $options = [], protected $label = true)
-    {
+    protected string $tagName = 'select';
+    protected bool $closeTag = true;
 
-    }
+
+
+    public function __construct(
+        protected string $name,
+        protected array $attributes,
+        protected array $options = [],
+        protected bool $label = true
+    ){}
 
     /**
      * @return string
      */
-    protected function build()
+    protected function build(): string
     {
         if($this->options){
-            $html = '';
-            if($this->label){
-                $html = "<label>{$this->name}</label>";
+            foreach($this->options as $value => $name){
+                $this->innerTag .= "<option value=\"$value\">$name</option>";
             }
 
-            $html .= '<select name="' . strtolower($this->name) . '" ' .  $this->getParams($this->params) . '>';
-            $html .= $this->options();
-            $html .= '</select>';
-
-            return $html;
+            return parent::build();
         }
         return '';
     }
@@ -33,7 +35,7 @@ class Select extends FormElement
     /**
      * @return string
      */
-    private function options()
+    private function options(): string
     {
         $options = '';
         foreach($this->options as $value => $name){

@@ -6,9 +6,10 @@ require __DIR__ . '/vendor/autoload.php';
 use app\FormGenerator;
 use app\Input;
 use app\Select;
+use app\Textarea;
 use app\Button;
 
-FormGenerator::validate();
+
 
 if(isset($_POST) && !empty($_POST)){
     header("Location: http://localhost:8000");
@@ -29,11 +30,18 @@ if(isset($_POST) && !empty($_POST)){
 </head>
 <body>
 
-<?php   $name = (new Input('text', 'Name', ['name' => 'name', 'value' => '']))->render();
-        $email = (new Input('text', 'Email', ['name' => 'email', 'value' => '']))->render();
-        $select = (new Select('Services', ['id' => 'services'], ['0' => 'Select service', '1' => 'Girls', '2' => 'drugs', '3' => 'Weapons']))->render();
-        $button = (new Button('submit', 'Submit', ['class' => 'btn']))->render();
-        $form = new FormGenerator([$name, $email, $select, $button]); ?>
+<?php
+        $form = new FormGenerator([
+            (new Input('text', 'name', ['value' => '', 'required' => 'required']))->render(),
+            (new Input('text', 'email', ['value' => '']))->render(),
+            (new Input('checkbox', 'check-check', ['value' => 1]))->render(),
+            (new Input('radio', 'age', ['value' => 20]))->render(),
+            (new Input('radio', 'age', ['value' => 30],  false))->render(),
+            (new Input('radio', 'age', ['value' => 40], false))->render(),
+            (new Select('services', ['id' => 'services'], ['0' => 'Select service', '1' => 'Girls', '2' => 'Drugs', '3' => 'Weapons']))->render(),
+            (new Textarea('message', ['rows' => 5]))->render(),
+            (new Button('submit', 'Submit', ['class' => 'btn']))->render(),
+        ]); ?>
 
         <div class="container">
             <div class="form">
@@ -41,6 +49,7 @@ if(isset($_POST) && !empty($_POST)){
             <?= $form->generateForm('POST', ['id' => 'callback']); ?>
             </div>
         </div>
+
 </body>
 </html>
 

@@ -6,6 +6,19 @@ use app\FormElement;
 
 class Input extends FormElement
 {
+    protected string $tagName = 'input';
+    protected array $types = [
+        'text',
+        'button',
+        'checkbox',
+        'radio',
+        'file',
+        'hidden',
+        'image',
+        'password',
+        'submit'
+    ];
+
 
     /**
      * @param string $type
@@ -13,23 +26,15 @@ class Input extends FormElement
      * @param bool $label
      * @param array $params
      */
-    public function __construct(protected $type, protected $name, protected $params, protected $label = true){}
-
-    /**
-     * @return string
-     */
-    protected function build()
-    {
-        $html = '';
-        if($this->label){
-            $html = "<label>{$this->name}</label>";
+    public function __construct(
+        protected string $type,
+        protected string $name,
+        protected array $attributes,
+        protected bool $label = true
+    ){
+        if(!in_array($this->type, $this->types)){
+            $this->getTypeError();
         }
-
-        $html .= "<input type=\"{$this->type}\" " . $this->getParams($this->params);
-        $html = rtrim($html, ' ');
-        $html .= '>';
-
-        return $html;
     }
 
 

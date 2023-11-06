@@ -5,28 +5,35 @@ namespace app;
 use app\FormElement;
 class Button extends FormElement
 {
+    protected string $tagName = 'button';
+    protected array $types = [
+        'button',
+        'reset',
+        'submit'
+    ];
+
+
     /**
      * @param string $type
      * @param string $value
      * @param array $params
      */
-    public function __construct(protected $type,  protected $value, protected $params = [])
+    public function __construct(protected string $type,  protected string $value, protected array $attributes)
     {
-
+        if(!in_array($this->type, $this->types)){
+            $this->getTypeError();
+        }
     }
 
     /**
      * @return string
      */
-    protected function build()
+    protected function build(): string
     {
-        $html = "<button type=\"{$this->type}\" ";
-        if($this->params){
-            $html .= $this->getParams($this->params);
-        }
-        $html .= ">{$this->value}</button>";
-
-        return $html;
+       return $result = "<button type=\"{$this->type}\" {$this->getAttributes($this->attributes)}>{$this->value}</button>";
     }
+
+
+
 
 }

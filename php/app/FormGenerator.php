@@ -1,18 +1,16 @@
 <?php
 
 namespace app;
-class FormGenerator
+
+use app\AbstractFormGenerator;
+class FormGenerator extends \app\AbstractFormGenerator
 {
-    private  static $name;
-    private static $email;
-    private static $services;
-    private static $errors = [];
 
 
     /**
      * @param array $elements
      */
-    public function __construct(private $elements = [])
+    public function __construct(private array $elements = [])
     {
 
     }
@@ -22,12 +20,12 @@ class FormGenerator
      * @param array $formParams
      * @return string
      */
-    public function generateForm($method, $formParams)
+    public function generateForm(string $method, array $formAttributes)
     {
         if($this->elements){
             $html = '<form method="' . $method . '" ';
-            if($formParams){
-                foreach($formParams as $name => $value){
+            if($formAttributes){
+                foreach($formAttributes as $name => $value){
                     $html .= $name . '="' . $value . '" ';
                 }
             }
@@ -49,40 +47,9 @@ class FormGenerator
         return '';
     }
 
-    /**
-     * @return void
-     */
-    public static function validate()
-    {
-        if(isset($_POST) && !empty($_POST)){
-            self::$name = trim(htmlspecialchars($_POST['name']));
-            self::$email = trim(htmlspecialchars($_POST['email']));
-            self::$services = htmlspecialchars($_POST['services']);
 
-            if(self::$name == ''){
-                self::$errors[] = 'Поле Name не може бути пустим!';
-            }
 
-            if(strlen(self::$name) < 3){
-                self::$errors[] = 'Name має містити не меньше 3-х символів!';
-            }
 
-            if(!preg_match('#[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}#im', self::$email)){
-                self::$errors[] = 'Не коректний Email!';
-            }
 
-            if(self::$errors){
-                $message = '<div class="message">';
-                foreach(self::$errors as $error){
-                    $message .= '<div class="error">' . $error . '</div>';
-                }
-                $message .= '</div>';
-            } else {
-                $message = '<div class="success message">Ваша форма успішно відправлена!</div>';
-            }
-
-            $_SESSION['message'] = $message;
-        }
-    }
 
 }

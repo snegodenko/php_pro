@@ -8,3 +8,9 @@ services:
     ports:
       - "8000:8000"
     command: php -S 0.0.0.0:8000 -t /var/www/html
+
+  composer:
+    image: composer
+    command: composer install
+    volumes:
+      - ".:/app"
