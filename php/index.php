@@ -1,13 +1,9 @@
 <?php 
 
-session_start();
+
 require __DIR__ . '/vendor/autoload.php';
 
-use app\FormGenerator;
-use app\Input;
-use app\Select;
-use app\Textarea;
-use app\Button;
+use app\Date;
 
 
 
@@ -30,24 +26,15 @@ if(isset($_POST) && !empty($_POST)){
 </head>
 <body>
 
-<?php
-        $form = new FormGenerator([
-            (new Input('text', 'name', ['value' => '', 'required' => 'required']))->render(),
-            (new Input('text', 'email', ['value' => '']))->render(),
-            (new Input('checkbox', 'check-check', ['value' => 1]))->render(),
-            (new Input('radio', 'age', ['value' => 20]))->render(),
-            (new Input('radio', 'age', ['value' => 30],  false))->render(),
-            (new Input('radio', 'age', ['value' => 40], false))->render(),
-            (new Select('services', ['id' => 'services'], ['0' => 'Select service', '1' => 'Girls', '2' => 'Drugs', '3' => 'Weapons']))->render(),
-            (new Textarea('message', ['rows' => 5]))->render(),
-            (new Button('submit', 'Submit', ['class' => 'btn']))->render(),
-        ]); ?>
 
         <div class="container">
-            <div class="form">
-                <div class="form-title">Callback form</div>
-            <?= $form->generateForm('POST', ['id' => 'callback']); ?>
-            </div>
+
+
+            <?php $date = new Date(12,12, 2023); ?>
+            <?php echo $date->isSameDate(new Date(12,12,2023)); echo '<br>'?>
+            <?php echo $date->difference(new Date(10, 12, 2022)); ?>
+
+
         </div>
 
 </body>
