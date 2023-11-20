@@ -2,7 +2,10 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use app\Date;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
 
 ?>
 
@@ -17,17 +20,23 @@ use app\Date;
     <title>Document</title>
 </head>
 <body>
+<?php
+
+$logger = new Logger('logger');
+$logger->pushHandler(new StreamHandler(__DIR__.'/logs/app.log', Level::Debug));
+$logger->pushHandler(new FirePHPHandler());
+
+$user = ['name' => 'User', 'age' => 30, 'sex' => 'man'];
+
+$logger->info('User', $user);
+$log = require __DIR__ . '/logs/app.log';
+
+var_dump($log);
+
+?>
 
 
-        <div class="container">
-            <h1>YES</h1>
 
-            <?php $date = new Date(12,12, 2023); ?>
-            <?php echo $date->isSameDate(new Date(12,12,2023)); echo '<br>'?>
-            <?php echo $date->difference(new Date(10, 12, 2022)); ?>
-
-
-        </div>
 
 </body>
 </html>
