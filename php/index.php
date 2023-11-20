@@ -1,16 +1,8 @@
 <?php 
 
-
 require __DIR__ . '/vendor/autoload.php';
 
 use app\Date;
-
-
-
-if(isset($_POST) && !empty($_POST)){
-    header("Location: http://localhost:8000");
-    die();
-}
 
 ?>
 
@@ -28,7 +20,7 @@ if(isset($_POST) && !empty($_POST)){
 
 
         <div class="container">
-
+            <h1>YES</h1>
 
             <?php $date = new Date(12,12, 2023); ?>
             <?php echo $date->isSameDate(new Date(12,12,2023)); echo '<br>'?>

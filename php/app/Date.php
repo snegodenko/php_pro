@@ -50,8 +50,8 @@ final readonly class Date
     }
 
     /**
-     * @param $date
-     * @return false|int
+     *
+     * @return int
      */
     private function getTimeStamp(): int
     {
