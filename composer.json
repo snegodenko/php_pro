@@ -1,0 +1,13 @@
+{
+    "require": {
+        "vlucas/valitron": "^1.4",
+        "symfony/var-dumper": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app",
+            "core\\": "core",
+            "libs\\": "libs"
+        }
+    }
+}
