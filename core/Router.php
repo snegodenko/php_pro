@@ -10,7 +10,7 @@ class Router
     public function __construct()
     {
         $this->getRoutes();
-        $this->getRoute();;
+        $this->getRoute();
     }
 
 
@@ -79,7 +79,7 @@ class Router
 
     private function nameAction(string $action): string
     {
-       return $str = str_replace(' ', '', ucwords(preg_replace("#\-#", ' ', $action)));
+       return str_replace(' ', '', ucwords(preg_replace("#\-#", ' ', $action)));
     }
 
 
