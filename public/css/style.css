@@ -40,6 +40,10 @@ h1 {
     text-decoration: underline;
 }
 
+.form {
+    max-width: 400px;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -49,4 +53,8 @@ h1 {
 }
 .success {
     color: green;
+}
+
+.data-item {
+    display: flex;
 }

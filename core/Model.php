@@ -48,9 +48,14 @@ class Model
         if($this->errors){
             $html = '';
             foreach($this->errors as $item){
-                foreach($item as $error){
-                    $html .= '<div class="error">' . $error . '</div>';
+                if(is_array($item)){
+                    foreach($item as $error){
+                        $html .= '<div class="error">' . $error . '</div>';
+                    }
+                } else {
+                    $html .= '<div class="error">' . $item . '</div>';
                 }
+
             }
             return $html;
         }
@@ -58,7 +63,7 @@ class Model
     }
 
 
-    public function success(): string
+    protected function success(): string
     {
         return "<div class=\"success\">Ваша форма успішно відправлена:<br> Name: {$this->name}<br> Email: {$this->email}<br> Message: {$this->message}</div>";
     }

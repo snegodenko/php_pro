@@ -1,3 +1,6 @@
+<?php
+use core\Application;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +17,13 @@
         <div class="nav">
             <ul class="menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="/profile">Profile</a></li>
                 <li><a href="/contacts">Contacts</a></li>
+                <?php if(Application::$app->user->userId) : ?>
+                <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <?php else : ?>
+                    <li><a href="/profile">Login</a></li>
+                <?php endif; ?>
             </ul>
         </div>
         <div class="content">

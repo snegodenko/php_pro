@@ -8,14 +8,18 @@ class Application
 {
     public Router $router;
     public View $view;
-    public static $request;
+    public Request $request;
+    public User $user;
+    public static $app;
 
 
 
     public function __construct()
     {
-        self::$request = new Request();
+        $this->request = new Request();
         $this->router = new Router();
+        $this->user = new User();
+        self::$app = $this;
     }
 
 
