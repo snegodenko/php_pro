@@ -4,6 +4,7 @@ namespace app\models;
 
 use core\Auth;
 use core\Model;
+use app\models\UserDb;
 
 #[\Attributes(
     [
@@ -23,7 +24,7 @@ class LoginForm extends Model
     {
         if($this->validate($data)){
             $this->loadData($data);
-            $auth = new Auth();
+            $auth = new Auth($this->getUser());
             if($auth->checkUser($this->name, $this->email, $this->password)){
                 return true;
             }
@@ -31,5 +32,10 @@ class LoginForm extends Model
         }
 
         return false;
+    }
+
+    public function getUser(): object
+    {
+        return new UserDb();
     }
 }

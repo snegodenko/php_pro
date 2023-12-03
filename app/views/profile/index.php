@@ -42,7 +42,7 @@ use core\User;
                 (new Input('text', 'name', ['value' => '', 'required' => 'required', 'class' => 'form-control']))->render(),
                 (new Input('text', 'lastname', ['value' => '', 'required' => 'required', 'class' => 'form-control']))->render(),
                 (new Input('text', 'email', ['value' => '', 'class' => 'form-control']))->render(),
-                (new Input('text', 'password', ['value' => '', 'class' => 'form-control']))->render(),
+                (new Input('password', 'password', ['value' => '', 'class' => 'form-control']))->render(),
                 (new Button('submit', 'Submit', ['class' => 'btn btn-primary']))->render(),
             ]
         );
